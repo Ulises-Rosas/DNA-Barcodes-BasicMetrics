@@ -1,4 +1,9 @@
-# DNA-Barcodes-BasicMetrics
+# Basic metrics of DNA barcodes
+
+Characterization of DNA barcode reference library depends on comprehensive analysis of K2P distance matrices. Estimates of Barcoding Gap or Neighbor species are inferred from these kind of matrices. Therefore, 
+
+
+
 Variability measures  of DNA barcodes sequences (i.e. Intraspecific and Interespecific) by using commands in R
 
 ```Rscript
