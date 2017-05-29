@@ -138,3 +138,4 @@ Sciaena_umbra                0.0018894681 0.001889468 0.001889468  0.1966161    
    Min. 1st Qu.  Median    Mean 3rd Qu.    Max. 
  0.0000  0.1843  0.2048  0.2225  0.2562  0.4070 
 ```
+![Image of Ulises-Rosas](https://github.com/Ulises-Rosas/DNA-Barcodes-BasicMetrics/rplot.png)
