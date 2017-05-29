@@ -2,13 +2,12 @@
 
 Strategies of species detection, and even delimitation, using genetic characters are mostly build on the analysis of DNA markers called DNA barcodes. DNA barcoding have demonstrated Resolution of identification and delmitation both at local and regional if optimal referece libray are build. Notwithstanding, characterization of DNA barcode reference library depends on comprehensive analysis of K2P (i.e. Kimura 2-parameter model) distance matrices. Estimates of **Barcoding Gap** or **Neighbor Species** are inferred from these kind of matrices. Therefore, data exploration of these matrices is a stepping tone process
 
-Several Programs with graphical interfaz such as *MEGA* produce distance matrices as outcomes. Then, downstream procedures, however, do not rely   ,but rather outside of these programs interfaz are traditionally involved in the pipeline. Prone to errors
+Several Programs with graphical interfaz such as *MEGA* produce distance matrices as outcomes. Downstream procedures, however, do not rely in same programs,but rather pipeline traditionally involve more than one program to analyse K2P distance matrices. This is not only more time consuming, but also it is prone to errors.
 
-Neighbor or barcoding gap, it is not handled and it should invert too much code in R. Exploratory data. Data requiere to plot information. Little is know about tat program
 
-R packages can represent a good represent a good option to handled sistematically large set of sequence information. Currently there are packages which provide information of barcodes (e.g _Spider_ package), however its demand you prior knowlegde in command R. The user experience will depend
+R packages can represent an optimal way to handled sistematically large set of sequence information as DNA barcodes. Currently there are packages which provide information of barcodes (e.g _Spider_ package), however its demand you prior knowlegde in command R. The user experience will depend
 
-, variability function is presented using base function and *Ape* package in R, using as input only fasta equences with formated names. The aim objective is obtain data quicklier to explore your barcodes and in turn, characterize your refernce library
+variability function is presented using base function and *Ape* package in R, using as input only fasta equences with formated names. The aim objective is obtain data quicklier to explore your barcodes and in turn, characterize your refernce library
 
 ## Input preparation
 #### Data mining
