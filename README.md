@@ -138,4 +138,22 @@ Sciaena_umbra                0.0018894681 0.001889468 0.001889468  0.1966161    
    Min. 1st Qu.  Median    Mean 3rd Qu.    Max. 
  0.0000  0.1843  0.2048  0.2225  0.2562  0.4070 
 ```
-![Image of Ulises-Rosas](https://github.com/Ulises-Rosas/DNA-Barcodes-BasicMetrics/blob/master/rplot2.png)
+```Rscript
+par(mfrow = c(1,2))
+hist(sciae$Interspecific_values, col = 'gray', breaks = 150, border = 'gray', 
+     xlab = 'K2P distances', main = NULL)
+box()
+hist(sciae$Intraspecific_values, col = 'green', breaks = 150, border = 'green', add=T)
+legend('topleft', 
+       legend=c("Intraspecific distances", "Interspecific distances"),
+       col=c("green", "gray"), 
+       pch = c(15,15), cex=0.95,
+       bg='transparent',
+       bty = 'n')
+plot(sciae$Summary_table[,'intra_max'], sciae$Summary_table[,'inter_min'], 
+     xlab = 'Maximun intraspecific distance', ylab = 'Nearest Neighbor distance')
+abline(a=0,b =1, col ='gray', lwd=3, lty=5)
+text(0.1253226, 0.1150362, ##position retrieved by locator(1) 
+     '1:1 Line', col = 'gray', srt=60)
+```
+![Image of Ulises-Rosas](https://github.com/Ulises-Rosas/DNA-Barcodes-BasicMetrics/blob/master/plots.png)
