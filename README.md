@@ -15,7 +15,7 @@ In the following post, variability function is presented using base function and
 library(rentrez)
 library(ape)
 mining = entrez_search(db = 'nuccore', 
-                       term = "Sciaenidae[Organism] AND (COI[GENE] OR COX[Gene]) AND 
+                       term = "Sciaenidae[Organism] AND (COI[Gene] OR COX[Gene]) AND 
                        (600[SLEN] : 650[SLEN])" ,
                        retmax = 560)
                        
@@ -138,7 +138,9 @@ Sciaena_umbra                0.0018894681 0.001889468 0.001889468  0.1966161    
 0.000000 0.001890 0.003788 0.020809 0.015327 0.341685 
 > sciaenidae$Interspecific_metrics
    Min. 1st Qu.  Median    Mean 3rd Qu.    Max. 
- 0.0000  0.1843  0.2048  0.2225  0.2562  0.4070 
+0.0000  0.1843  0.2048  0.2225  0.2562  0.4070 
+> sciaenidae$Barcoding_Gap
+-0.3416851
 ```
 ```Rscript
 par(mfrow = c(1,2))
