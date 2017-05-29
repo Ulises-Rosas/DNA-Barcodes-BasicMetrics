@@ -5,7 +5,7 @@ Strategies of species detection, and even delimitation, using genetic characters
 Several Programs with graphical interfaz such as *MEGA* produce K2P distance matrices as outcomes. Downstream procedures, however, do not rely in same programs,but rather pipelines traditionally involve more than one program to analyse matrices. This is not only more time consuming, but also it is prone to errors.
 
 
-R packages can represent an optimal way to handled sistematically large set of sequence information, included DNA barcodes. Currently there are packages which provide information of barcodes (e.g _Spider_ package), however it demands prior knowlegde in R programming. On top of this, these package do not provide direct information about of Barcoding Gap or Neighbor Species and accordingly demand prior knowlegde in R programing.  
+R packages can represent an optimal way to handled sistematically large set of sequence information, included DNA barcodes. Currently there are packages which provide information of barcodes (e.g _Spider_ package), however these packages do not provide direct information about of Barcoding Gap or Neighbor Species and accordingly demand prior knowlegde in R programing.  
 
 In the following post, variability function is presented using base function and *Ape* package in R, using as input only fasta equences mined from Gen Bank. The aim objective is obtain foremost data to explore barcodes and, in turn, characterize a reference library
 
