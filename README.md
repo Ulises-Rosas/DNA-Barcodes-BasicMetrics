@@ -30,25 +30,23 @@ Thus, function _read.GenBank()_ download all the sequences whose ID stored in `I
 seqs_sciaenidae = read.GenBank(ID_sciaenidae$ids)
 ```
 
-
 #### Name structure
 
-
-
-
+Once obtained raw sequences, we need to change their name format like the following:
 ```
 >ID|Name of the specie
 TAAGTCAGCCCGGCGCACTTCTCGGAGATGACCAAGTTTA
 TAACGTAATTGTTACGGCACATGCCTTCGTTATAATTTTC
 TTTA...
 ```
+The forthcoming code is used to change names of `seqs_sciaenidae` object:
 ```Rscript
-seqs= paste(mining$ids, '|', attr(seqs_mining, 'species'), sep = "")
-names(seqs_mining) = seqs
+formatted_names = paste(ID_sciaenidae$ids, '|', attr(seqs_sciaenidae, 'species'), sep = "")
+names(seqs_sciaenidae) = formatted_names
 ```
-
-
 #### Sequence filtering
+
+
 
 ```Rscript
 sciae.spp = attr(seqs_mining, 'species')
