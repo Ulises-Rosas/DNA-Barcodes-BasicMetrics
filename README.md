@@ -11,6 +11,7 @@ In the following post, a simple function called `variability` is presented which
 ## Input preparation
 Before testing the variability function, input data was prepared. To accomplish this, DNA sequences were download from GenBank. Then, since variability function only carry out its estimates with a single format of sequence names, names of mined sequences were restructured. Finally, only binomial system names were taken by sequence filtering. 
 
+
 #### Data mining
 On this case, _Rentrez_ and _Ape_ packages were used to mine barcodes of species belonging to the family Sciaenidae from GenBank. All available ID's of COI or COX sequences, whose length is between 600-650 bp, were recruited. That interval of sequence lengths is due that barcode region have roughly 650 bp of length. Codes are shown in the following lines: 
 ```Rscript
@@ -27,6 +28,7 @@ Thus, function _read.GenBank()_ download all the sequences whose ID stored in `I
 seqs_sciaenidae = read.GenBank(ID_sciaenidae$ids)
 ```
 
+
 #### Name structure
 Once obtained raw sequences, we need to change their name format like the following:
 ```
@@ -40,6 +42,7 @@ The forthcoming code is used to change names of `seqs_sciaenidae` object:
 formatted_names = paste(ID_sciaenidae$ids, '|', attr(seqs_sciaenidae, 'species'), sep = "")
 names(seqs_sciaenidae) = formatted_names
 ```
+
 
 #### Sequence filtering
 ```Rscript
@@ -64,8 +67,8 @@ write.dna(seqs_filtrated, 'sciaenidae_mined.txt', format = 'fasta',nbcol=1, colw
 ```
 [sequences](https://github.com/Ulises-Rosas/DNA-Barcodes-BasicMetrics/blob/master/sciaenidae_mined_linsi_gblocks.txt)
 
-## Testing data
 
+## Testing data
 Variability measures  of DNA barcodes sequences (i.e. Intraspecific and Interespecific) by using commands in R
 
 ```Rscript
