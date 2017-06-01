@@ -1,6 +1,9 @@
 # Basic metrics of DNA barcodes
 
-Strategies of species detection, and even delimitation, using genetic characters are mostly build on the analysis of DNA markers called DNA barcodes. DNA barcoding have demonstrated Resolution of identification and delmitation both at local and regional if optimal referece library are built. Notwithstanding, characterization of DNA barcode reference library depends on comprehensive analysis of K2P (i.e. Kimura 2-parameter model) distance matrices. Estimates of **Barcoding Gap** or **Neighbor Species** are inferred from these kind of matrices. Therefore, data exploration with correct usage of these matrices is a stepping stone procedure to characterize DNA barcode reference library.
+Strategies of species detection, and even delimitation, using genetic characters are mostly build on the analysis of DNA markers called DNA barcodes. DNA barcoding have demonstrated high resolution in identifying and delimiting species either at local or regional scales if optimal referece library are constructed. Characterization of DNA barcode reference library depends on comprehensive analysis of K2P (i.e. Kimura 2-parameter model) distance matrices. Estimates of **Barcoding Gap** or **Neighbor Species** are inferred from these kind of matrices. Therefore, data exploration with correct usage of these matrices is a stepping stone towards to characterization of a DNA barcode reference library.
+
+
+correct usage of these matrices is a 
 
 Several softwares with graphical interfaz such as *MEGA* produce K2P distance matrices as outcomes. Downstream procedures, however, do not rely in same programs, but rather pipelines traditionally involve more than one program to analyse matrices. This is not only more time consuming, but also it is prone to errors.
 
