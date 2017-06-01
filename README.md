@@ -6,10 +6,18 @@ Several softwares with graphical user-friendly interfaces such as *MEGA* also pr
 
 R programing represent an optimal way to sistematically handle large set of sequence information, included DNA barcodes. Upon working in a single console, errors due to file manipulation are eliminated. Currently there are R packages which provide information of barcodes (e.g _Spider_ package). Little is, however, known about direct outcomes of metrics by species (i.e. intraspecific and interspecific variability) using these packages. On top of this, retrieving the Barcoding Gap or Neighbor Species from these ones requiere prior knowledge in R programing and hence troubles emerge for whom do not know R programing.
 
-In the following post, a simple function called `variability` is presented which conducts basic metrics of DNA barcodes by species using base commands and *Ape* package in R. To test that function, fasta sequences mined from _GenBank_ repository were used. The aim objective is obtain directly foremost data to explore barcodes by species and, in turn, characterize a reference library.
+In the following post, a simple function called `variability` is presented which conducts basic metrics of DNA barcodes by species using base commands and *Ape* package in R. To test that function, DNA sequences mined from the _GenBank_ repository were used. The aim objective is obtain directly foremost data to explore barcodes by species and, in turn, characterize a reference library.
 
 ## Input preparation
+
+Before testing the variability function, the input data was prepared. To accomplish this, DNA sequences were download from GenBank. Then, since variability function only carry out its estimates with a single format of sequence names, names of mined sequences were restructured. Finally, only binomial system names were taked by sequence filtering. 
+
 #### Data mining
+
+the _Rentrez_ and _Ape_ packages were used to mine sequences from GenBank. All available sequences of species belonging to the family Sciaenidae were recruited.  
+
+Settings are as the following lines:  
+
 ```Rscript
 library(rentrez)
 library(ape)
@@ -19,6 +27,17 @@ mining = entrez_search(db = 'nuccore',
                        retmax = 560)
                        
 ```
+```Rscript
+library(rentrez)
+library(ape)
+mining = entrez_search(db = 'nuccore', 
+                       term = "Sciaenidae[Organism] AND (COI[Gene] OR COX[Gene]) AND 
+                       (600[SLEN] : 650[SLEN])" ,
+                       retmax = 560)
+                       
+```
+
+
 #### Name structure
 ```Rscript
 seqs= paste(mining$ids, '|', attr(seqs_mining, 'species'), sep = "")
