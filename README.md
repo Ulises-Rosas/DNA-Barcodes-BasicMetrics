@@ -14,35 +14,39 @@ Before testing the variability function, input data was prepared. To accomplish 
 
 #### Data mining
 
-the _Rentrez_ and _Ape_ packages were used to mine sequences from GenBank. All available sequences of species belonging to the family Sciaenidae were recruited.  
-
-Settings are as the following lines:  
+On this case, _Rentrez_ and _Ape_ packages were used to mine barcodes of species belonging to the family Sciaenidae from GenBank. All available ID's of COI or COX sequences, whose length is between 600-650 bp, were recruited. That interval of sequence lengths is due that barcode region have roughly 650 bp of length. Codes are shown in the following lines: 
 
 ```Rscript
 library(rentrez)
 library(ape)
-mining = entrez_search(db = 'nuccore', 
-                       term = "Sciaenidae[Organism] AND (COI[Gene] OR COX[Gene]) AND 
-                       (600[SLEN] : 650[SLEN])" ,
-                       retmax = 560)
+ID_sciaenidae = entrez_search(db = 'nuccore', term = "Sciaenidae[Organism] AND (COI[Gene] OR COX[Gene]) AND 
+                      (600[SLEN] : 650[SLEN])" ,
+                       retmax = 560) ## only 560 were obtained following above conditions
                        
 ```
+Thus, function _read.GenBank()_ download all the sequences whose ID stored in `ID_scaenidae` object match with ID's within the GenBank repository:
+
 ```Rscript
-seqs_minnig = read.GenBank(mining$ids)
+seqs_sciaenidae = read.GenBank(ID_sciaenidae$ids)
 ```
 
 
 #### Name structure
-```Rscript
-seqs= paste(mining$ids, '|', attr(seqs_mining, 'species'), sep = "")
-names(seqs_mining) = seqs
-```
+
+
+
+
 ```
 >ID|Name of the specie
 TAAGTCAGCCCGGCGCACTTCTCGGAGATGACCAAGTTTA
 TAACGTAATTGTTACGGCACATGCCTTCGTTATAATTTTC
 TTTA...
 ```
+```Rscript
+seqs= paste(mining$ids, '|', attr(seqs_mining, 'species'), sep = "")
+names(seqs_mining) = seqs
+```
+
 
 #### Sequence filtering
 
