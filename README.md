@@ -28,13 +28,7 @@ mining = entrez_search(db = 'nuccore',
                        
 ```
 ```Rscript
-library(rentrez)
-library(ape)
-mining = entrez_search(db = 'nuccore', 
-                       term = "Sciaenidae[Organism] AND (COI[Gene] OR COX[Gene]) AND 
-                       (600[SLEN] : 650[SLEN])" ,
-                       retmax = 560)
-                       
+seqs_minnig = read.GenBank(carey$ids)
 ```
 
 
