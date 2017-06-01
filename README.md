@@ -10,7 +10,7 @@ In the following post, a simple function called `variability` is presented which
 
 ## Input preparation
 
-Before testing the variability function, the input data was prepared. To accomplish this, DNA sequences were download from GenBank. Then, since variability function only carry out its estimates with a single format of sequence names, names of mined sequences were restructured. Finally, only binomial system names were taked by sequence filtering. 
+Before testing the variability function, input data was prepared. To accomplish this, DNA sequences were download from GenBank. Then, since variability function only carry out its estimates with a single format of sequence names, names of mined sequences were restructured. Finally, only binomial system names were taken by sequence filtering. 
 
 #### Data mining
 
