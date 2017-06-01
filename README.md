@@ -28,7 +28,7 @@ mining = entrez_search(db = 'nuccore',
                        
 ```
 ```Rscript
-seqs_minnig = read.GenBank(carey$ids)
+seqs_minnig = read.GenBank(mining$ids)
 ```
 
 
