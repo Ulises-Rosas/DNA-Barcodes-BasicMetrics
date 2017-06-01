@@ -6,7 +6,7 @@ Several softwares with graphical user-friendly interfaces such as *MEGA* also pr
 
 R programing represent an optimal way to sistematically handle large set of sequence information, included DNA barcodes. Upon working in a single console, errors due to file manipulation are eliminated. Currently there are R packages which provide information of barcodes (e.g _Spider_ package). Little is, however, known about direct outcomes of metrics by species (i.e. intraspecific and interspecific variability) using these packages. On top of this, retrieving the Barcoding Gap or Neighbor Species from these ones requiere prior knowledge in R programing and hence troubles emerge for whom do not know R programing.
 
-In the following post, a simple function called `variability` is presented which conducts basic metrics of DNA barcodes by species using base commands and *Ape* package in R. To test that function, DNA sequences mined from the _GenBank_ repository were used. The aim objective is obtain directly foremost data to explore barcodes by species and, in turn, characterize a reference library.
+In the following post, a simple function called `variability` is presented which conducts basic metrics of DNA barcodes by species using base commands and *Ape* package in R. To test that function, mined DNA sequences from the _GenBank_ repository were used. The aim objective is obtain directly foremost data to explore barcodes by species and, in turn, characterize a reference library.
 
 ## Input preparation
 
