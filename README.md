@@ -2,7 +2,7 @@
 
 Strategies of species detection, and even delimitation, using genetic characters are mostly build on the analysis of DNA markers called DNA barcodes. DNA barcoding have demonstrated high resolution in identifying and delimiting species either at local or regional scales if optimal referece library are constructed. Characterization of DNA barcode reference library depends on comprehensive analysis of K2P (i.e. Kimura 2-parameter model) distance matrices. For instance, estimates of **Barcoding Gap** or **Neighbor Species** are inferred from these kind of matrices. Therefore, stringent data exploration of these matrices is a stepping-stone towards characterizing of a DNA barcode reference library.
 
-Several softwares with graphical user-friendly interfaces such as *MEGA* also produce K2P distance matrices. Notwithstanding, its outcomes provide metric by sequences instead of species. Accordingly downstream procedures do not come forward in the same program, but rather traditional pipelines turn to involve more than one program to analyse matrices. This is not only more time consuming, but also it is prone to errors. 
+Several softwares with graphical user-friendly interfaces such as *MEGA* also produce K2P distance matrices. Notwithstanding, its outcomes provide metrics by sequences instead of species. Accordingly downstream procedures do not come forward in the same program, but rather traditional pipelines turn to involve more than one program to analyse matrices. This is not only more time consuming, but also it is prone to errors. 
 
 R programing represent an optimal way to sistematically handle large set of sequence information, included DNA barcodes. Upon working in a single console, errors due to file manipulation are eliminated. Currently there are R packages which provide information of barcodes (e.g _Spider_ package). Little is, however, known about direct outcomes of metrics by species (i.e. intraspecific and interspecific variability) using these packages. On top of this, retrieving the Barcoding Gap or Neighbor Species from these ones requiere prior knowledge in R programming and hence troubles emerge for whom do not know R programming.
 
@@ -62,19 +62,22 @@ for(i in 1:length(whole.spp)){
 }
 binomial.spp.whitout.na = binomial.spp[!is.na(binomial.spp)] ##erase all "NA" wrote by next() function
 ```
-Then, we extract unique names to used them in a grep() function. This grep() fucntion match with all that sequence which contains the name in its structure name. This formated filtered names was used to extract sequence which has that name
+Then, unique names were held them as aurgument pattern in a _grep()_ function. It searches for matches within each element of the `names(seqs_sciaenidae)` vector. Matches were, in turn, used to extract sequences:
+
 ```Rscript
-filtered.names = unique(binomial.spp.whitout.na)
+filtered.names = unique(binomial.spp.whitout.na) ##unique names of binomial.spp.whitout.na object
+
 filtered.names.formated = unlist(lapply(filtered.names, function(x){
-  grep(x, names(seqs_sciaenidae), value = T)}))
-seqs_filtrated = seqs_sciaenidae[c(which(names(seqs_sciaenidae) %in% filtered.names.formated))]
+  grep(x, names(seqs_sciaenidae), value = T)})) ##it searches for matches  
+  
+seqs_filtrated = seqs_sciaenidae[c(which(names(seqs_sciaenidae) %in% filtered.names.formated))] ##sequence extraction using names 
 ```
-Above command prepare the final amount of sequence which will stay in our analyzes. On that account, sequences were exported in text file to align them:
+Above command prepare the final version of sequences which will stay in our analyzes. On that account, sequences were exported in text file to align them:
 
 ```Rscript
 write.dna(seqs_filtrated, 'sciaenidae_mined.txt', format = 'fasta',nbcol=1, colw= 60)
 ```
-Software **MAFFT** with local pair algorithm (i.e. Smith-Waterman algorithm) was used to the alignment. Those ends outside the zone of aligments were cutted with **Gblocks** software. Finally, we have these sequences which will serve as input data to variability function: [sequences](https://github.com/Ulises-Rosas/DNA-Barcodes-BasicMetrics/blob/master/sciaenidae_mined_linsi_gblocks.txt)
+Alignments were performend with the software **MAFFT** and its local pair algorithm (i.e. Smith-Waterman algorithm). Those ends outside the alignment zone were cutted with **Gblocks** software. Finally, we have these sequences which will serve as input data to variability function: [sequences](https://github.com/Ulises-Rosas/DNA-Barcodes-BasicMetrics/blob/master/sciaenidae_mined_linsi_gblocks.txt)
 
 
 ## Testing data
