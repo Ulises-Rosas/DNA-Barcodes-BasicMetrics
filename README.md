@@ -151,7 +151,7 @@ calculate basic metric of DNA barcodes:
 ```
 >metrics.sciaenidae = variability(sciaenidae.barcodes)
 ```
-If it appears a warning message, it is due there are species represented by a single sequence. Summary table shows basic metrics by species of sequences. It include, **Neighbor Species** and **Most Divergent Species**:
+If it appears a warning message, it is due there are species represented by a single sequence. Summary table shows basic metrics by species. It include, **Neighbor Species** and **Most Divergent Species**:
 
 ```
 > metrics.sciaenidae$Summary_table
@@ -195,8 +195,9 @@ abline(a=0,b =1, col ='gray', lwd=3, lty=5)
 text(0.1253226, 0.1150362, ##position retrieved by locator(1) 
      '1:1 Line', col = 'gray', srt=60)
 ```
-These code used `metrics.sciaenidae$Interspecific_values`,` metrics.sciaenidae$Intraspecific_values` and` metrics.sciaenidae$Summary_table` objects
+
+These codes use `metrics.sciaenidae$Interspecific_values`,` metrics.sciaenidae$Intraspecific_values` and` metrics.sciaenidae$Summary_table` objects
 
 ![Image of Ulises-Rosas](https://github.com/Ulises-Rosas/DNA-Barcodes-BasicMetrics/blob/master/plots.png)
 
-Since we are dowloading sequences directly from the _GenBank_ repository rather than _BOLD_ repository, misannotation of sequences can occur. Nevertheless, the absence of a Barcoding Gap can be defined either in terms of sequence annotation as also effect of broad geographical scales geographical scales. 
+Since we are dowloading sequences directly from the _GenBank_ repository rather than _BOLD_ repository, misannotation of sequences can occur. Nevertheless, the absence of a Barcoding Gap can be defined either in terms of sequence annotation as also effect of broad geographical scales. 
