@@ -22,7 +22,7 @@ ID_sciaenidae = entrez_search(db = 'nuccore', term = "Sciaenidae[Organism] AND (
                        retmax = 560) ## only 560 were obtained following above conditions
                        
 ```
-Thus, function _read.GenBank()_ download all the sequences whose ID stored in `ID_scaenidae` object match with ID's within the GenBank repository:
+Thus, function _read.GenBank()_ download all those sequences whose IDs, stored in `ID_scaenidae` object, match with IDs within the GenBank repository:
 
 ```Rscript
 seqs_sciaenidae = read.GenBank(ID_sciaenidae$ids)
@@ -30,14 +30,14 @@ seqs_sciaenidae = read.GenBank(ID_sciaenidae$ids)
 
 
 #### Name structure
-Once obtained raw sequences, we need to change its name format like the following format:
+The variability function run with a single format of sequence names and it is like the following:
 ```
 >ID|Name of the specie
 TAAGTCAGCCCGGCGCACTTCTCGGAGATGACCAAGTTTA
 TAACGTAATTGTTACGGCACATGCCTTCGTTATAATTTTC
 TTTA...
 ```
-The forthcoming code is used to change names of `seqs_sciaenidae` object:
+In consequence, once obtained raw sequences, we need to change its name format. The forthcoming code is used to change names of `seqs_sciaenidae` object:
 ```Rscript
 formatted_names = paste(ID_sciaenidae$ids, '|', attr(seqs_sciaenidae, 'species'), sep = "")
 names(seqs_sciaenidae) = formatted_names
@@ -46,17 +46,19 @@ names(seqs_sciaenidae) = formatted_names
 
 #### Sequence filtering
 
-Although DNA barcoding detects signs of incomplete lineage sorting if correct identification of species by using morphological characters is conducted, its validation needs additional markers. Thus, considering we are characterizing a DNA barcode reference library, in this example we will constraint us to analyse only species-level sequences.
+DNA barcoding detects signs of incomplete lineage sorting if correct identification of species by using morphological characters is conducted, its validation, however, needs additional markers. Thus, considering we are characterizing a DNA barcode reference library, in this example we will constraint us to analyse only sequences of species identified at species-level:
 
 ```Rscript
 whole.spp = attr(seqs_sciaenidae, 'species')
 binomial.spp = vector('character')
-for(i in 1:length(sciae.spp)){
-  if(length(strsplit(sciae.spp[i], '_')[[1]]) > 2){ 
-    next  ##eliminate all names whose structre are composed by more than 2 words
-  }else{
-    binomial.spp[i]=whole.spp[i] ##recover binomal names only
-  }
+for(i in 1:length(whole.spp)){
+        if(length(strsplit(whole.spp[i], '_')[[1]]) > 2){ 
+                next  ##eliminate all names whose structre are composed by more than 2 words
+        }else if(strsplit(whole.spp[i], '_')[[1]][2] == "sp"){
+                next  ##eliminate all names composed with "sp" (i.e. just at genus-level identification)
+        }else {
+                binomial.spp[i]=whole.spp[i] ##recover binomal names only
+        }
 }
 binomial.spp.whitout.na = binomial.spp[!is.na(binomial.spp)] ##erase all "NA" wrote by next() function
 ```
@@ -135,7 +137,13 @@ return(main_list)
 }
 ```
 ```
-> sciaenidae$Summary_table
+>sciaenidae.barcodes = read.FASTA("sciaenidae_mined_linsi_gblocks.txt")
+>metrics.sciaenidae = variability(sciaenidae.barcodes)
+```
+
+
+```
+> metrics.sciaenidae$Summary_table
                                intra_mean   intra_min   intra_max inter_mean                   neighbor   inter_min          most_divergent inter_max
 Pteroscion_peli              0.0056926611 0.005692661 0.005692661  0.2049753           Umbrina_bussingi 0.129972963         Johnius_carouna 0.3704298
 Pseudotolithus_senegallus             NaN         Inf        -Inf  0.2004204       Pseudotolithus_typus 0.043292379         Johnius_carouna 0.3266601
@@ -147,28 +155,28 @@ Sciaena_umbra                0.0018894681 0.001889468 0.001889468  0.1966161    
 ...
 ```
 ```
-> sciaenidae$Intraspecific_metrics
+> metrics.sciaenidae$Intraspecific_metrics
     Min.  1st Qu.   Median     Mean  3rd Qu.     Max. 
 0.000000 0.001890 0.003788 0.020809 0.015327 0.341685 
-> sciaenidae$Interspecific_metrics
+> metrics.sciaenidae$Interspecific_metrics
    Min. 1st Qu.  Median    Mean 3rd Qu.    Max. 
 0.0000  0.1843  0.2048  0.2225  0.2562  0.4070 
-> sciaenidae$Barcoding_Gap
+> metrics.sciaenidae$Barcoding_Gap
 -0.3416851
 ```
 ```Rscript
 par(mfrow = c(1,2))
-hist(sciae$Interspecific_values, col = 'gray', breaks = 150, border = 'gray', 
+hist(metrics.sciaenidae$Interspecific_values, col = 'gray', breaks = 150, border = 'gray', 
      xlab = 'K2P distances', main = NULL)
 box()
-hist(sciae$Intraspecific_values, col = 'green', breaks = 150, border = 'green', add=T)
+hist(metrics.sciaenidae$Intraspecific_values, col = 'green', breaks = 150, border = 'green', add=T)
 legend('topleft', 
        legend=c("Intraspecific distances", "Interspecific distances"),
        col=c("green", "gray"), 
        pch = c(15,15), cex=0.95,
        bg='transparent',
        bty = 'n')
-plot(sciae$Summary_table[,'intra_max'], sciae$Summary_table[,'inter_min'], 
+plot(metrics.sciaenidae$Summary_table[,'intra_max'], metrics.sciaenidae$Summary_table[,'inter_min'], 
      xlab = 'Maximun intraspecific distance', ylab = 'Nearest Neighbor distance')
 abline(a=0,b =1, col ='gray', lwd=3, lty=5)
 text(0.1253226, 0.1150362, ##position retrieved by locator(1) 
