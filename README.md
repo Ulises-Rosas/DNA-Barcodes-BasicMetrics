@@ -53,7 +53,7 @@ whole.spp = attr(seqs_sciaenidae, 'species')
 binomial.spp = vector('character')
 for(i in 1:length(whole.spp)){
         if(length(strsplit(whole.spp[i], '_')[[1]]) > 2){ 
-                next  ##eliminate all names whose structre are composed by more than 2 words
+                next  ##eliminate all names whose structure are composed by more than two words
         }else if(strsplit(whole.spp[i], '_')[[1]][2] == "sp"){
                 next  ##eliminate all names composed with "sp" (i.e. just at genus-level identification)
         }else {
@@ -62,15 +62,19 @@ for(i in 1:length(whole.spp)){
 }
 binomial.spp.whitout.na = binomial.spp[!is.na(binomial.spp)] ##erase all "NA" wrote by next() function
 ```
+Then, we extract unique names to used them in a grep() function. This grep() fucntion match with all that sequence which contains the name in its structure name. This formated filtered names was used to extract sequence which has that name
 ```Rscript
-new.names = unique(ve2)
-new.names.formated = unlist(lapply(new.names, function(x){
-  grep(x, names(seqs_mining), value = T)}))
+filtered.names = unique(binomial.spp.whitout.na)
+filtered.names.formated = unlist(lapply(filtered.names, function(x){
+  grep(x, names(seqs_sciaenidae), value = T)}))
+seqs_filtrated = seqs_sciaenidae[c(which(names(seqs_sciaenidae) %in% filtered.names.formated))]
+```
+Above command prepare the final amount of sequence which will stay in our analyzes. On that account, sequences were exported in text file to align them:
 
-seqs_filtrated = seqs_mining[c(which(names(seqs_mining) %in% new.names.formated))]
+```Rscript
 write.dna(seqs_filtrated, 'sciaenidae_mined.txt', format = 'fasta',nbcol=1, colw= 60)
 ```
-[sequences](https://github.com/Ulises-Rosas/DNA-Barcodes-BasicMetrics/blob/master/sciaenidae_mined_linsi_gblocks.txt)
+Software **MAFFT** with local pair algorithm (i.e. Smith-Waterman algorithm) was used to the alignment. Those ends outside the zone of aligments were cutted with **Gblocks** software. Finally, we have these sequences which will serve as input data to variability function: [sequences](https://github.com/Ulises-Rosas/DNA-Barcodes-BasicMetrics/blob/master/sciaenidae_mined_linsi_gblocks.txt)
 
 
 ## Testing data
