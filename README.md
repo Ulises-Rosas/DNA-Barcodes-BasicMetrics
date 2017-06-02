@@ -4,7 +4,7 @@ Strategies of species detection, and even delimitation, using genetic characters
 
 Several softwares with graphical user-friendly interfaces such as *MEGA* also produce K2P distance matrices. Notwithstanding, its outcomes provide metric by sequences instead of species. Accordingly downstream procedures do not come forward in the same program, but rather traditional pipelines turn to involve more than one program to analyse matrices. This is not only more time consuming, but also it is prone to errors. 
 
-R programing represent an optimal way to sistematically handle large set of sequence information, included DNA barcodes. Upon working in a single console, errors due to file manipulation are eliminated. Currently there are R packages which provide information of barcodes (e.g _Spider_ package). Little is, however, known about direct outcomes of metrics by species (i.e. intraspecific and interspecific variability) using these packages. On top of this, retrieving the Barcoding Gap or Neighbor Species from these ones requiere prior knowledge in R programing and hence troubles emerge for whom do not know R programing.
+R programing represent an optimal way to sistematically handle large set of sequence information, included DNA barcodes. Upon working in a single console, errors due to file manipulation are eliminated. Currently there are R packages which provide information of barcodes (e.g _Spider_ package). Little is, however, known about direct outcomes of metrics by species (i.e. intraspecific and interspecific variability) using these packages. On top of this, retrieving the Barcoding Gap or Neighbor Species from these ones requiere prior knowledge in R programming and hence troubles emerge for whom do not know R programming.
 
 In the following post, a simple function called `variability` is presented which conducts basic metrics of DNA barcodes by species using base commands and *Ape* package in R. To test that function, mined DNA sequences from the _GenBank_ repository were used. The aim objective is obtain directly foremost data to explore barcodes by species and, in turn, characterize a reference library.
 
@@ -30,7 +30,7 @@ seqs_sciaenidae = read.GenBank(ID_sciaenidae$ids)
 
 
 #### Name structure
-Once obtained raw sequences, we need to change their name format like the following:
+Once obtained raw sequences, we need to change its name format like the following format:
 ```
 >ID|Name of the specie
 TAAGTCAGCCCGGCGCACTTCTCGGAGATGACCAAGTTTA
@@ -45,17 +45,20 @@ names(seqs_sciaenidae) = formatted_names
 
 
 #### Sequence filtering
+
+Although DNA barcoding detects signs of incomplete lineage sorting if correct identification of species by using morphological characters is conducted, its validation needs additional markers. Thus, considering we are characterizing a DNA barcode reference library, in this example we will constraint us to analyse only species-level sequences.
+
 ```Rscript
-sciae.spp = attr(seqs_mining, 'species')
-ve = vector('character')
+whole.spp = attr(seqs_sciaenidae, 'species')
+binomial.spp = vector('character')
 for(i in 1:length(sciae.spp)){
-  if(length(strsplit(sciae.spp[i], '_')[[1]]) > 2){
-    next
+  if(length(strsplit(sciae.spp[i], '_')[[1]]) > 2){ 
+    next  ##eliminate all names whose structre are composed by more than 2 words
   }else{
-    ve[i]=sciae.spp[i]
+    binomial.spp[i]=whole.spp[i] ##recover binomal names only
   }
 }
-ve2 = ve[!is.na(ve)]
+binomial.spp.whitout.na = binomial.spp[!is.na(binomial.spp)] ##erase all "NA" wrote by next() function
 ```
 ```Rscript
 new.names = unique(ve2)
