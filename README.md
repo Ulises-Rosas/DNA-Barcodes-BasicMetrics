@@ -62,27 +62,30 @@ for(i in 1:length(whole.spp)){
 }
 binomial.spp.whitout.na = binomial.spp[!is.na(binomial.spp)] ##erase all "NA" wrote by next() function
 ```
-Then, unique names were held them as aurgument pattern in a _grep()_ function. It searches for matches within each element of the `names(seqs_sciaenidae)` vector. Matches were, in turn, used to extract sequences:
+Then, unique names were held them as argument pattern in a _grep()_ function. It searches for matches within each element of the `names(seqs_sciaenidae)` vector. Matches were, in turn, used to extract sequences:
 
 ```Rscript
 filtered.names = unique(binomial.spp.whitout.na) ##unique names of binomial.spp.whitout.na object
 
 filtered.names.formated = unlist(lapply(filtered.names, function(x){
   grep(x, names(seqs_sciaenidae), value = T)})) ##it searches for matches  
-  
-seqs_filtrated = seqs_sciaenidae[c(which(names(seqs_sciaenidae) %in% filtered.names.formated))] ##sequence extraction using names 
+
+##sequence extraction using names 
+seqs_filtrated = seqs_sciaenidae[c(which(names(seqs_sciaenidae) %in% filtered.names.formated))]
 ```
 Above command prepare the final version of sequences which will stay in our analyzes. On that account, sequences were exported in text file to align them:
 
 ```Rscript
 write.dna(seqs_filtrated, 'sciaenidae_mined.txt', format = 'fasta',nbcol=1, colw= 60)
 ```
-Alignments were performend with the software **MAFFT** and its local pair algorithm (i.e. Smith-Waterman algorithm). Those ends outside the alignment zone were cutted with **Gblocks** software. Finally, we have these sequences which will serve as input data to variability function: [sequences](https://github.com/Ulises-Rosas/DNA-Barcodes-BasicMetrics/blob/master/sciaenidae_mined_linsi_gblocks.txt)
-
+Alignments were performend with the program **MAFFT-L-INS-i** (i.e. Smith-Waterman algorithm). Those ends outside the alignment zone were cutted with the program **Gblocks**. Finally, we already have those sequences which will act as input data to variability function: [sequences](https://github.com/Ulises-Rosas/DNA-Barcodes-BasicMetrics/blob/master/sciaenidae_mined_linsi_gblocks.txt)
 
 ## Testing data
-Variability measures  of DNA barcodes sequences (i.e. Intraspecific and Interespecific) by using commands in R
-
+To test variability function we firstly must read our sequences :
+```Rscript
+>sciaenidae.barcodes = read.FASTA("sciaenidae_mined_linsi_gblocks.txt")
+```
+Then, we run the `variabilty` script:
 ```Rscript
 variability <- function(barcodes){
         ##species name obtained from the self structure of sequence name
@@ -143,11 +146,12 @@ Barcoding_Gap = min(unlist(sapply(unname(d), as.numeric))) - max(unlist(intra_li
 return(main_list)
 }
 ```
+calculate basic metric of DNA barcodes:
+
 ```
->sciaenidae.barcodes = read.FASTA("sciaenidae_mined_linsi_gblocks.txt")
 >metrics.sciaenidae = variability(sciaenidae.barcodes)
 ```
-
+If it appears a warning message, it is due there are species represented by a single sequence. Summary table shows basic metrics by species of sequences. It include, **Neighbor Species** and **Most Divergent Species**:
 
 ```
 > metrics.sciaenidae$Summary_table
@@ -161,6 +165,7 @@ Umbrina_canariensis          0.0041919706 0.000000000 0.009544968  0.1951246    
 Sciaena_umbra                0.0018894681 0.001889468 0.001889468  0.1966161            Umbrina_cirrosa 0.088387300         Johnius_carouna 0.3479523
 ...
 ```
+Also, as part of their outcomes, variability function estimates the **Barcoding Gap**:
 ```
 > metrics.sciaenidae$Intraspecific_metrics
     Min.  1st Qu.   Median     Mean  3rd Qu.     Max. 
@@ -171,6 +176,7 @@ Sciaena_umbra                0.0018894681 0.001889468 0.001889468  0.1966161    
 > metrics.sciaenidae$Barcoding_Gap
 -0.3416851
 ```
+If its value is negative, it means that there are not a **Barcoding Gap** using the  whole reference library. We can also graphically demonstrate it running the following code:
 ```Rscript
 par(mfrow = c(1,2))
 hist(metrics.sciaenidae$Interspecific_values, col = 'gray', breaks = 150, border = 'gray', 
@@ -189,4 +195,8 @@ abline(a=0,b =1, col ='gray', lwd=3, lty=5)
 text(0.1253226, 0.1150362, ##position retrieved by locator(1) 
      '1:1 Line', col = 'gray', srt=60)
 ```
+These code used `metrics.sciaenidae$Interspecific_values`,` metrics.sciaenidae$Intraspecific_values` and` metrics.sciaenidae$Summary_table` objects
+
 ![Image of Ulises-Rosas](https://github.com/Ulises-Rosas/DNA-Barcodes-BasicMetrics/blob/master/plots.png)
+
+Since we are dowloading sequences directly from the _GenBank_ repository rather than _BOLD_ repository, misannotation of sequences can occur. Nevertheless, the absence of a Barcoding Gap can be defined either in terms of sequence annotation as also effect of broad geographical scales geographical scales. 
