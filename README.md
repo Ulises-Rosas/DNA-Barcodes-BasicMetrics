@@ -14,7 +14,7 @@ Before testing the variability function, input data was prepared. To accomplish 
 
 #### Data mining
 On this case, _Rentrez_ and _Ape_ packages were used to mine barcodes of species belonging to the family Sciaenidae from GenBank. All available ID's of COI or COX sequences, whose length is between 600-650 bp, were recruited. That interval of sequence lengths is due that barcode region have roughly 650 bp of length. Codes are shown in the following lines: 
-```Rscript
+```R
 library(rentrez)
 library(ape)
 ID_sciaenidae = entrez_search(db = 'nuccore', term = "Sciaenidae[Organism] AND (COI[Gene] OR COX[Gene]) AND 
@@ -24,7 +24,7 @@ ID_sciaenidae = entrez_search(db = 'nuccore', term = "Sciaenidae[Organism] AND (
 ```
 Thus, function _read.GenBank()_ download all those sequences whose IDs, stored in `ID_scaenidae` object, match with IDs within the GenBank repository:
 
-```Rscript
+```R
 seqs_sciaenidae = read.GenBank(ID_sciaenidae$ids)
 ```
 
@@ -38,7 +38,7 @@ TAACGTAATTGTTACGGCACATGCCTTCGTTATAATTTTC
 TTTA...
 ```
 In consequence, once obtained raw sequences, we need to change its name format. The forthcoming code is used to change names of `seqs_sciaenidae` object:
-```Rscript
+```R
 formatted_names = paste(ID_sciaenidae$ids, '|', attr(seqs_sciaenidae, 'species'), sep = "")
 names(seqs_sciaenidae) = formatted_names
 ```
@@ -48,7 +48,7 @@ names(seqs_sciaenidae) = formatted_names
 
 DNA barcoding detects signs of incomplete lineage sorting if correct identification of species by using morphological characters is conducted, its validation, however, needs additional markers. Thus, considering we are characterizing a DNA barcode reference library, in this example we will constraint us to analyse only sequences of species identified at species-level:
 
-```Rscript
+```R
 whole.spp = attr(seqs_sciaenidae, 'species')
 binomial.spp = vector('character')
 for(i in 1:length(whole.spp)){
@@ -64,7 +64,7 @@ binomial.spp.whitout.na = binomial.spp[!is.na(binomial.spp)] ##erase all "NA" wr
 ```
 Then, unique names were held them as argument pattern in a _grep()_ function. It searches for matches within each element of the `names(seqs_sciaenidae)` vector. Matches were, in turn, used to extract sequences:
 
-```Rscript
+```R
 filtered.names = unique(binomial.spp.whitout.na) ##unique names of binomial.spp.whitout.na object
 
 filtered.names.formated = unlist(lapply(filtered.names, function(x){
@@ -75,18 +75,18 @@ seqs_filtrated = seqs_sciaenidae[c(which(names(seqs_sciaenidae) %in% filtered.na
 ```
 Above command prepare the final version of sequences which will stay in our analyzes. On that account, sequences were exported in text file to align them:
 
-```Rscript
+```R
 write.dna(seqs_filtrated, 'sciaenidae_mined.txt', format = 'fasta',nbcol=1, colw= 60)
 ```
 Alignments were performend with the program **MAFFT-L-INS-i** (i.e. Smith-Waterman algorithm). Those ends outside the alignment zone were cutted with the program **Gblocks**. Finally, we already have those sequences which will act as input data to variability function: [sequences](https://github.com/Ulises-Rosas/DNA-Barcodes-BasicMetrics/blob/master/sciaenidae_mined_linsi_gblocks.txt)
 
 ## Testing data
 To test variability function we firstly must read our sequences :
-```Rscript
+```R
 >sciaenidae.barcodes = read.FASTA("sciaenidae_mined_linsi_gblocks.txt")
 ```
 Then, we run the `variabilty` script:
-```Rscript
+```R
 variability <- function(barcodes){
         ##species name obtained from the self structure of sequence name
         spp = sapply(strsplit(names(barcodes), "\\|"), function(a){a[2]})
@@ -177,7 +177,7 @@ Also, as part of their outcomes, variability function estimates the **Barcoding 
 -0.3416851
 ```
 If its value is negative, it means that there are not a **Barcoding Gap** using the  whole reference library. We can also graphically demonstrate it running the following code:
-```Rscript
+```R
 par(mfrow = c(1,2))
 hist(metrics.sciaenidae$Interspecific_values, col = 'gray', breaks = 150, border = 'gray', 
      xlab = 'K2P distances', main = NULL)
