@@ -7,14 +7,14 @@ variability <- function(barcodes){
 intra_list = lapply(uniq_spp, function(b){
         g.tmp = grep(b, names(barcodes), value = T)
         intra_by_spp = barcodes[c(which(names(barcodes) %in% g.tmp))]
-        dist.dna(intra_by_spp, "k80")})
+        dist.dna(intra_by_spp, "k80", pairwise.deletion = T, gamma = 4)})
 ##creating intraspecific data frame
 dat = data.frame(intra_mean = sapply(intra_list, mean), 
                  intra_min = sapply(intra_list, min), 
                  intra_max = sapply(intra_list, max))   
 row.names(dat) = uniq_spp
 ##as.matrix to boost the manipulation of row names
-c = dist.dna(barcodes, model = "k80", as.matrix = T) ##whole distance matrix
+c = dist.dna(barcodes, model = "k80", as.matrix = T, pairwise.deletion = T, gamma = 4) ##whole distance matrix
 d = list()
 ##with names to batch with them and to have as rows as length of unique(spp)
 for(i in 1:length(spp)){
