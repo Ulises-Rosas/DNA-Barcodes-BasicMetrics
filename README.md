@@ -200,4 +200,4 @@ These codes use `metrics.sciaenidae$Interspecific_values`,` metrics.sciaenidae$I
 
 ![Image of Ulises-Rosas](https://github.com/Ulises-Rosas/DNA-Barcodes-BasicMetrics/blob/master/plots.png)
 
-Since we are dowloading sequences directly from the _GenBank_ repository rather than _BOLD_ repository, misannotation of sequences can occur. Nevertheless, the absence of a Barcoding Gap can be defined either in terms of sequence annotation as also effect of broad geographical scales. 
+Since we are downloading sequences directly from the _GenBank_ repository rather than _BOLD_ repository, misannotation of sequences can occur. Nevertheless, the absence of a Barcoding Gap can be defined either in terms of sequence annotation as also effect of broad geographical scales. 
