@@ -7,7 +7,7 @@ Please cite the following article when using this repo:
 
 **U. Rosas**<sup>\*</sup>, F. Menendez, R. Cornejo, R. Canales, X. Velez-Zuazo. Fish DNA barcoding around large marine infrastructure for improved biodiversity assessment and monitoring. ***Mitochondrial DNA Part A***. (2018): 1-6.
 
-[![doi](https://img.shields.io/badge/doi-10.1080/24701394.2018.1431225-green.svg?style=flat)](http://dx.doi.org/10.1111/2041-210X.12628)
+[![doi](https://img.shields.io/badge/doi-10.1080/24701394.2018.1431225-green.svg?style=flat)](http://dx.doi.org/10.1080/24701394.2018.1431225)
 
 ------------------------------------------------------------------------
 
