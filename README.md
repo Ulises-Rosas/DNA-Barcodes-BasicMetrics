@@ -1,4 +1,15 @@
+
 # Basic metrics of DNA barcodes
+
+
+
+Please cite the following article when using this repo:
+
+**U. Rosas**<sup>\*</sup>, F. Menendez, R. Cornejo, R. Canales, X. Velez-Zuazo. Fish DNA barcoding around large marine infrastructure for improved biodiversity assessment and monitoring. ***Mitochondrial DNA Part A***. (2018): 1-6.
+
+[![doi](https://img.shields.io/badge/doi-10.1080/24701394.2018.1431225-green.svg?style=flat)](http://dx.doi.org/10.1111/2041-210X.12628)
+
+------------------------------------------------------------------------
 
 Strategies of species detection, and even delimitation, by using genetic characters are mostly built on the analysis of DNA markers called DNA barcodes. DNA barcoding have demonstrated high resolution in identifying and delimiting species either at local or regional scales if a optimal reference library is constructed. Characterization of DNA barcode reference library depends on comprehensive analysis of K2P (i.e. Kimura 2-parameter model) distance matrices. For instance, estimates of **Barcoding Gap** or **Neighbor Species** are inferred from these kind of matrices. Therefore, stringent data exploration of these matrices is a stepping-stone towards characterizing of a DNA barcode reference library.
 
@@ -7,6 +18,8 @@ Several softwares with graphical user-friendly interfaces such as *MEGA* also pr
 R programing represent an optimal way to sistematically handle large set of sequence information, included DNA barcodes. Upon working in a single console, errors due to file manipulation are eliminated. Currently there are R packages which provide information of barcodes (e.g _Spider_ package). Little is, however, known about direct outcomes of metrics by species (i.e. intraspecific and interspecific variability) using these packages. On top of this, retrieving the Barcoding Gap or Neighbor Species from these ones requiere prior knowledge in R programming and hence troubles emerge for whom do not know R programming.
 
 In the following post, a simple function called `variability` is presented which conducts basic metrics of DNA barcodes by species using base commands and *Ape* package in R. To test that function, mined DNA sequences from the _GenBank_ repository were used. The aim objective is obtain directly foremost data to explore barcodes by species and, in turn, characterize a reference library.
+
+
 
 ## Input preparation
 Before testing the variability function, input data was prepared. To accomplish this, DNA sequences were download from GenBank. Then, since variability function only carry out its estimates with a single format of sequence names, names of mined sequences were restructured. Finally, only binomial system names were taken by sequence filtering. 
