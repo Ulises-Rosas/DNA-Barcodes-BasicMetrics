@@ -99,7 +99,7 @@ To test variability function we firstly must read our sequences :
 >sciaenidae.barcodes = read.FASTA("sciaenidae_mined_linsi_gblocks.txt")
 ```
 Then, we run the `variabilty` script:
-```R
+```r
 variability <- function(barcodes){
         ##species name obtained from the self structure of sequence name
         spp = sapply(strsplit(names(barcodes), "\\|"), function(a){a[2]})
